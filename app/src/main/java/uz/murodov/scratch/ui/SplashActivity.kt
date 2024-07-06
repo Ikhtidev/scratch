@@ -9,7 +9,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import uz.murodov.scratch.R
 import uz.murodov.scratch.databinding.ActivitySplashBinding
 
@@ -23,6 +22,11 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initViews()
+
+    }
+
+    private fun initViews() {
         val animForImg = AnimationUtils.loadAnimation(this, R.anim.splash_img_anim)
         binding.imageView.startAnimation(animForImg)
 
@@ -32,7 +36,6 @@ class SplashActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             startMainActivity()
         }
-
     }
 
     private suspend fun startMainActivity() {

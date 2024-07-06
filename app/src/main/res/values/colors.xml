@@ -2,9 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_overlay">#ECECEC</color>
     <color name="light_yellow_600">#fbcd59</color>
     <color name="light_yellow_900">#ef9922</color>
-    <color name="light_yellow_A200">#fbcd59</color>
-    <color name="light_yellow_A400">#ef9922</color>
+    <color name="light_yellow_A200">#E9EEF2</color>
+    <color name="light_yellow_A400">#EAC15A</color>
     <color name="black_overlay">#66000000</color>
+<!--    my own colors-->
+    <color name="color_category_motion">#4B67AF</color>
+    <color name="color_category_looks">#5A4495</color>
 </resources>
