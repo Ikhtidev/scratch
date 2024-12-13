@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("kotlin-kapt")
+//    id("kotlin-kapt")
 }
 
 android {
@@ -37,10 +37,6 @@ android {
     buildFeatures {
         viewBinding = true
     }
-
-    buildFeatures{
-        viewBinding = true
-    }
 }
 
 dependencies {
@@ -54,13 +50,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // lottie animations
-    implementation(libs.lottie)
-
     // pdfViewer
     implementation(libs.android.pdf.viewer)
-
-    // room
-    implementation(libs.androidx.room.runtime)
-    kapt(libs.androidx.room.compiler)
 }

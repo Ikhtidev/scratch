@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Scratchni o\'rganamiz</string>
-    <string name="test_text">Motion</string>
+    <string name="unknown_error">Qandaydir xatolik yuzaga keldi</string>
+    <string name="operators">Operators</string>
+    <string name="learn_more">Batafsil</string>
 </resources>

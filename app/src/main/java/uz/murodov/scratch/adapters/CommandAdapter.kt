@@ -10,19 +10,22 @@ import uz.murodov.scratch.databinding.ItemCommandBinding
 import uz.murodov.scratch.model.Command
 
 class CommandAdapter(
-    private var commands: ArrayList<Command>,
-    private val onCommandClick: (command: Command?, commandPosition: Int?) -> Unit
+    private var commands: List<Command>,
+    private val onCommandClick: (command: Command, commandPosition: Int) -> Unit
 ) : RecyclerView.Adapter<CommandAdapter.CommandViewHolder>() {
 
     inner class CommandViewHolder(private val binding: ItemCommandBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(command: Command?, position: Int?) {
+        fun onBind(command: Command, position: Int) {
             binding.root.apply {
-                setImageResource(command?.img ?: R.drawable.ic_motion_0)
+                setImageResource(command.img)
                 val animation: Animation =
                     AnimationUtils.loadAnimation(itemView.context, R.anim.lefttoright)
                 startAnimation(animation)
                 setOnClickListener {
+                    val animation2: Animation =
+                        AnimationUtils.loadAnimation(itemView.context, R.anim.anim_command_pressed)
+                    startAnimation(animation2)
                     onCommandClick(command, position)
                 }
             }

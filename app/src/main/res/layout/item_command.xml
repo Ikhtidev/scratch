@@ -3,6 +3,7 @@
     android:id="@+id/imgCommand"
     android:layout_width="wrap_content"
     android:layout_height="45dp"
+    android:contentDescription="@string/app_name"
     android:scaleType="fitXY"
     android:padding="4dp"
-    android:src="@drawable/ic_motion_0" />
+    android:src="@drawable/motion_x_position" />

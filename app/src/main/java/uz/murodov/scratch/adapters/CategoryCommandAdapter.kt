@@ -11,15 +11,15 @@ import uz.murodov.scratch.R
 import uz.murodov.scratch.databinding.ItemCategoryCommandBinding
 import uz.murodov.scratch.model.CategoryCommand
 
-
 class CategoryCommandAdapter(
-    private var categories: ArrayList<CategoryCommand?>,
+    private var categories: List<CategoryCommand?>,
     private val onCategoryClick: (category: CategoryCommand?, categoryPosition: Int?) -> Unit
 ) : RecyclerView.Adapter<CategoryCommandAdapter.CategoryViewHolder>() {
 
     init {
         onCategoryClick(categories[0], 0)
     }
+
     private var selectedItemPosition: Int = 0
 
     inner class CategoryViewHolder(private val binding: ItemCategoryCommandBinding) :
@@ -38,7 +38,8 @@ class CategoryCommandAdapter(
             }
 
             itemView.apply {
-                val animation: Animation = AnimationUtils.loadAnimation(itemView.context, R.anim.fadein)
+                val animation: Animation =
+                    AnimationUtils.loadAnimation(itemView.context, R.anim.fadein)
                 startAnimation(animation)
                 setOnClickListener {
                     onCategoryClick(category, position)

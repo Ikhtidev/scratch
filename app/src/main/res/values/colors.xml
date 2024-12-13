@@ -9,6 +9,14 @@
     <color name="light_yellow_A400">#EAC15A</color>
     <color name="black_overlay">#66000000</color>
 <!--    my own colors-->
-    <color name="color_category_motion">#4B67AF</color>
-    <color name="color_category_looks">#5A4495</color>
+    <color name="color_category_interfeys">#0fbd8c</color>
+    <color name="color_category_motion">#4C97FF</color>
+    <color name="color_category_looks">#9966FF</color>
+    <color name="color_category_sound">#CF63CF</color>
+    <color name="color_category_events">#FFBF00</color>
+    <color name="color_category_control">#FFAB19</color>
+    <color name="color_category_sensing">#5CB1D6</color>
+    <color name="color_category_operators">#59C059</color>
+    <color name="color_category_variables">#FF8C1A</color>
+    <color name="color_tv_learn_more">#5A4495</color>
 </resources>

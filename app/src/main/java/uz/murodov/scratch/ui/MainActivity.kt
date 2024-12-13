@@ -1,16 +1,23 @@
 package uz.murodov.scratch.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import uz.murodov.scratch.R
-import uz.murodov.scratch.adapters.CommandAdapter
 import uz.murodov.scratch.adapters.CategoryCommandAdapter
+import uz.murodov.scratch.adapters.CommandAdapter
 import uz.murodov.scratch.databinding.ActivityMainBinding
-import uz.murodov.scratch.model.Command
 import uz.murodov.scratch.model.CategoryCommand
+import uz.murodov.scratch.model.Command
+import uz.murodov.scratch.utils.Categories
 
+/**
+ * created by Ikhtidev on 20.07.2023
+ */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -20,32 +27,59 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initViews()
+        setAdapters()
     }
 
-    private fun initViews() {
-        val categoryCommandList = ArrayList<CategoryCommand?>()
-        val commands = ArrayList<Command?>()
+    private fun setAdapters() {
+        val categoryAdapter = CategoryCommandAdapter(
+            Categories.categoryCommandList,
+            onCategoryClick = { category, _ ->
+                categoryClicked(category)
+            })
+        binding.rvCategory.adapter = categoryAdapter
+    }
 
-        categoryCommandList.add(CategoryCommand(motionCommands, "Motion", R.color.color_category_motion))
-        categoryCommandList.add(CategoryCommand(looksCommands, "Looks", R.color.color_category_looks))
+    private fun categoryClicked(category: CategoryCommand?) {
+        binding.pdfView.recycle()
+        binding.tvLearnMore.apply {
+            visibility = View.INVISIBLE
+            clearAnimation()
+        }
+        val commandAdapter = CommandAdapter(category!!.commands, onCommandClick = { command, _ ->
+            commandClicked(command)
+        })
+        binding.rvCommand.adapter = commandAdapter
+    }
 
-        val categoryAdapter = CategoryCommandAdapter(categoryCommandList, onCategoryClick = { category, categoryPosition ->
-            val commandAdapter = CommandAdapter(category!!.commands, onCommandClick = { command, commandPosition ->
+    private fun commandClicked(command: Command) {
+
+        val animForMore = AnimationUtils.loadAnimation(this, R.anim.anim_learn_more)
+        binding.tvLearnMore.apply {
+            visibility = View.VISIBLE
+            startAnimation(animForMore)
+            setOnClickListener {
+                // URL of Google Drive file
+                val fileUrl = "https://docs.google.com/document/d/12ZFWua2FzQvZqLidoD9Qf-69OI93hstV"
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(fileUrl))
+                startActivity(intent)
+            }
+        }
+
+        val fileName = "${command.slug}.pdf"
+
+        binding.pdfView.fromAsset(fileName)
+            .enableSwipe(true)
+//            .invalidPageColor(R.color.white)
+            .swipeHorizontal(false)
+            .enableDoubletap(false)
+            .defaultPage(0)
+            .onError {
                 Toast.makeText(
                     this@MainActivity,
-                    "${commandPosition}dagi $command bosildi",
+                    getString(R.string.unknown_error),
                     Toast.LENGTH_SHORT
                 ).show()
-            })
-            binding.rvActions.adapter = commandAdapter
-        })
-
-        binding.rvTabs.adapter = categoryAdapter
-
+            }
+            .load()
     }
-
-    private var motionCommands = arrayListOf(Command(R.drawable.ic_motion_0),Command(R.drawable.ic_motion_1),Command(R.drawable.ic_motion_2),Command(R.drawable.ic_motion_3),Command(R.drawable.ic_motion_4),Command(R.drawable.ic_motion_5),Command(R.drawable.ic_motion_6),Command(R.drawable.ic_motion_7),Command(R.drawable.ic_motion_8),Command(R.drawable.ic_motion_9),Command(R.drawable.ic_motion_10),Command(R.drawable.ic_motion_11),Command(R.drawable.ic_motion_12),Command(R.drawable.ic_motion_13))
-    private var looksCommands = arrayListOf(Command(R.drawable.ic_looks_0),Command(R.drawable.ic_looks_1),Command(R.drawable.ic_looks_2),Command(R.drawable.ic_looks_3),Command(R.drawable.ic_looks_4),Command(R.drawable.ic_looks_5),Command(R.drawable.ic_looks_6),Command(R.drawable.ic_looks_7),Command(R.drawable.ic_looks_8),Command(R.drawable.ic_looks_9),Command(R.drawable.ic_looks_10),Command(R.drawable.ic_looks_11),Command(R.drawable.ic_looks_12),Command(R.drawable.ic_looks_13),Command(R.drawable.ic_looks_14),Command(R.drawable.ic_looks_15))
-
 }
